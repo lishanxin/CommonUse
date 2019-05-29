@@ -4,4 +4,9 @@
     <string name="border_bottom">border_bottom</string>
     <string name="border_top">border_top</string>
     <string name="image_url">image_url</string>
+    <string name="show_process_activity">进程通信</string>
+    <string name="start_aidl_test">AIDL测试</string>
+    <string name="remote_service_connected">连接成功</string>
+    <string name="remote_service_disconnected">取消连接</string>
+    <string name="show_aidl_process_activity">AIDL进程通信</string>
 </resources>

@@ -24,7 +24,7 @@ public class MessengerService extends Service {
             super.handleMessage(msg);
             switch (msg.what){
                 case 0:
-                    Toast.makeText(getApplicationContext(), "hello, trmpcr", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "hello, trmpcr" + msg.getData().getString("KEY_ADDRESS") + msg.getData().getParcelable("PARCELABLE1").toString(), Toast.LENGTH_SHORT).show();
                     break;
             }
         }

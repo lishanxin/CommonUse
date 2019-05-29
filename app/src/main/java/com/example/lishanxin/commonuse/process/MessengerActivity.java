@@ -6,13 +6,23 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.os.Process;
 import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
+import com.example.lishanxin.commonuse.IRemoteService;
 import com.example.lishanxin.commonuse.R;
+import com.example.lishanxin.commonuse.Student;
 
+/**
+ * https://developer.android.com/guide/components/bound-services.html#Binder
+ */
 public class MessengerActivity extends AppCompatActivity {
 
     private boolean mBound;
@@ -42,6 +52,10 @@ public class MessengerActivity extends AppCompatActivity {
         if (!mBound)
             return;
         Message msg = Message.obtain(null, 0,0,0);
+        Bundle bundle = new Bundle();
+        bundle.putString("KEY_ADDRESS", "I am from Activity");
+        bundle.putParcelable("PARCELABLE1", new Student("lee Bundle", "chen Bundle"));
+        msg.setData(bundle);
         try {
             mMessenger.send(msg);
         } catch (RemoteException e) {
@@ -65,4 +79,6 @@ public class MessengerActivity extends AppCompatActivity {
             mBound = false;
         }
     }
+
+
 }

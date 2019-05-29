@@ -12,6 +12,32 @@ import android.widget.LinearLayout;
 
 import com.example.lishanxin.commonuse.utils.ScreenUtils;
 
+/*
+layout example:
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.lishanxin.commonuse.view.SlidingMenu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent"
+    android:scrollbars="none" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" >
+
+        <include layout="@layout/layout_menu" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/test_background" >
+        </LinearLayout>
+    </LinearLayout>
+
+</com.example.lishanxin.commonuse.view.SlidingMenu>
+
+ */
 public class SlidingMenu extends HorizontalScrollView {
     /**
      * 屏幕宽度

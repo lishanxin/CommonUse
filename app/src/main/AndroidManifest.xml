@@ -18,16 +18,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".process.MessengerActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--<activity android:name=".process.MessengerActivity"></activity>-->
-        <service android:name=".process.MessengerService"
-            android:process="com.lishanxin.messenger.service"/>
+        <activity android:name=".process.MessengerActivity" />
+
+        <service
+            android:name=".process.MessengerService"
+            android:process="com.lishanxin.messenger.service" />
+
+        <service
+            android:name=".process.aidlprocess.RemoteService"
+            android:process="com.lishanxin.messenger.aidlservice" />
+        <activity android:name=".process.aidlprocess.AidlClientActivity"></activity>
     </application>
 
 </manifest>

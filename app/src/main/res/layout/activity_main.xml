@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.example.lishanxin.commonuse.view.SlidingMenu xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="fill_parent"
-    android:scrollbars="none" >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:text="@string/show_process_activity"
+            android:onClick="showProcessActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-        <include layout="@layout/layout_menu" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/test_background" >
-        </LinearLayout>
+        <Button
+            android:text="@string/show_aidl_process_activity"
+            android:onClick="showAIDLProcessActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
-
-</com.example.lishanxin.commonuse.view.SlidingMenu>
+</LinearLayout>
