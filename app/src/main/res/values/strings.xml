@@ -9,4 +9,5 @@
     <string name="remote_service_connected">连接成功</string>
     <string name="remote_service_disconnected">取消连接</string>
     <string name="show_aidl_process_activity">AIDL进程通信</string>
+    <string name="show_ndk_test">NDK测试</string>
 </resources>
