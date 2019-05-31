@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
+import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
 
@@ -27,14 +28,28 @@ import java.net.Socket;
 
 public class MessengerService extends Service {
 
+    private Messenger clientMessenger;
+
     class IncomingHandler extends Handler{
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what){
                 case 0:
-                    Toast.makeText(getApplicationContext(), "hello, trmpcr" + msg.getData().getString("KEY_ADDRESS") + msg.getData().getParcelable("PARCELABLE1").toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "hello, trmpcr" + msg.getData().getString("KEY_ADDRESS"), Toast.LENGTH_SHORT).show();
                     break;
+                case 0x1001:
+                    clientMessenger = msg.replyTo;
+                    if (clientMessenger != null){
+                        Message message = new Message();
+                        message.what = 0x1002;
+                        message.arg1 = 10313;
+                        try {
+                            clientMessenger.send(message);
+                        } catch (RemoteException e) {
+                            e.printStackTrace();
+                        }
+                    }
             }
         }
     }

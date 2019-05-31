@@ -3,6 +3,7 @@ package com.example.lishanxin.commonuse.process;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
@@ -34,13 +35,34 @@ import java.net.Socket;
  */
 public class MessengerActivity extends AppCompatActivity {
 
+    private static final String TAG = MessengerActivity.class.getSimpleName();
     private boolean mBound;
     private Messenger mMessenger;
+
+    private Messenger mClientMessenger = new Messenger(new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 0x1002:
+                    Log.d(TAG, msg.arg1 + "" + "from service");
+                    break;
+            }
+        }
+    });
 
     private ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             mMessenger = new Messenger(service);
+            Message msg = new Message();
+            msg.replyTo = mClientMessenger;
+            msg.what = 0x1001;
+            try {
+                mMessenger.send(msg);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
             mBound = true;
         }
 
@@ -57,13 +79,12 @@ public class MessengerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_messenger);
     }
 
-    public void sayHello(View v){
+    public void sayHello(View v) {
         if (!mBound)
             return;
-        Message msg = Message.obtain(null, 0,0,0);
+        Message msg = Message.obtain(null, 0, 0, 0);
         Bundle bundle = new Bundle();
         bundle.putString("KEY_ADDRESS", "I am from Activity");
-        bundle.putParcelable("PARCELABLE1", new Student("lee Bundle", "chen Bundle"));
         msg.setData(bundle);
         try {
             mMessenger.send(msg);
@@ -83,7 +104,7 @@ public class MessengerActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        if (mBound){
+        if (mBound) {
             unbindService(mServiceConnection);
             mBound = false;
         }
@@ -106,19 +127,19 @@ public class MessengerActivity extends AppCompatActivity {
             //1、创建客户端socket，指定服务端地址和端口
             Socket socket = new Socket("localhost", 8888);
             boolean connected = socket.isConnected(); //检查客户端与服务端是否连接成功
-            System.out.println(connected?"连接成功":"连接失败，请重试！");
+            System.out.println(connected ? "连接成功" : "连接失败，请重试！");
 
             //2、获取输出流，向服务器发送消息
             OutputStream outputStream = socket.getOutputStream();
-            PrintWriter writer = new PrintWriter(new OutputStreamWriter(outputStream),true);
+            PrintWriter writer = new PrintWriter(new OutputStreamWriter(outputStream), true);
             writer.write("第一次来到广州\n");
             writer.flush();
 
             //3、获取输入流，并读取服务端的响应信息
             InputStream inputStream = socket.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-            String info=reader.readLine();
-            System.out.println("客户端收到服务端回应："+info);
+            String info = reader.readLine();
+            System.out.println("客户端收到服务端回应：" + info);
 
 
             //4、关闭资源
